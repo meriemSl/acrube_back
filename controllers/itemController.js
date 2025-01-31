@@ -32,8 +32,12 @@ exports.getOriginUrl = async (req, res) => {
     console.log('req', req.params.shortened_id);
     const param = req.params.shortened_id;
     const url = await Url.findOne({ hashUrl: param });
-    console.log('origin', url);
-    res.status(201).json(url);
+    console.log('url', url);
+    if (url) {
+      res.redirect(url.originUrl);
+    } else {
+        res.status(404).json({ message: 'URL not found' });
+    }
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: "Error getting url shorten" });

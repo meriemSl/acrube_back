@@ -16,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
-app.use("/api/items", itemRoutes);
+app.use("/", itemRoutes);
 
 // Health check endpoint (critical for Render)
 app.get('/health', (req, res) => {
