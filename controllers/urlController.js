@@ -6,16 +6,15 @@ const Url = require("../models/url");
 // POST a new url mapping
 exports.createUrl = async (req, res) => {
   try {
-
-    const { url } = req.body;
-    console.log('url', req.body);
-    const existingUrl = await Url.findOne({ originUrl: url });
+    const { urlInput } = req.body;
+    const existingUrl = await Url.findOne({ originUrl: urlInput });
     if (existingUrl) {
       return res.status(409).json({ message: "URL already shortened", url: existingUrl });
     }
-
-    let hashUrl  = await createHash(url, 3);
-    const newShortenUrl = new Url({ originUrl:url, hashUrl: hashUrl });
+    let hashUrl  = await createHash(urlInput, 3);
+  
+    const newShortenUrl = new Url({ originUrl: urlInput, hashUrl: hashUrl });
+    
     await newShortenUrl.save();
 
     res.status(201).json(newShortenUrl);
@@ -27,6 +26,7 @@ exports.createUrl = async (req, res) => {
 
 
 
+// GET the original URL
 exports.getOriginUrl = async (req, res) => {
   try {
     console.log('req', req.params.shortened_id);
@@ -51,12 +51,11 @@ exports.getOriginUrl = async (req, res) => {
         res.status(404).json({ message: 'URL not found' });
     }
   } catch (error) {
-    console.log(error);
     res.status(400).json({ message: "Error getting url shorten" });
   }
 };
 
-// GET all items
+// GET all urls
 exports.getItems = async (req, res) => {
   try {
     const Urls = await Url.find();

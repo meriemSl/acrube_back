@@ -3,8 +3,10 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const connectDB = require("../config/db");
-const itemRoutes = require("../routes/itemRoutes");
+const itemRoutes = require("../routes/urlRoutes");
 const errorHandler = require("../middleware/errorMiddleware");
+const swaggerSpec = require("../config/swagger");
+const swaggerUi = require('swagger-ui-express');
 
 // Connect to MongoDB
 connectDB();
@@ -22,6 +24,9 @@ app.use("/", itemRoutes);
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: Date.now() });
 });
+
+
+app.use("/swagger/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Error handling
 app.use(errorHandler);
