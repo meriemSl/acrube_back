@@ -1,5 +1,5 @@
 const { createHash } = require("../helper/helper");
-const Url = require("../models/Url");
+const Url = require("../models/url");
 
 
 
