@@ -34,7 +34,19 @@ exports.getOriginUrl = async (req, res) => {
     const url = await Url.findOne({ hashUrl: param });
     console.log('url', url);
     if (url) {
-      res.redirect(url.originUrl);
+      res.send(`
+        <html>
+            <head>
+                <title>Redirecting...</title>
+                <script>
+                    window.location.href = "${url.originUrl}";
+                </script>
+            </head>
+            <body>
+                <p>Redirecting to <a href="${url.originUrl}">${url.originUrl}</a>...</p>
+            </body>
+        </html>
+    `);
     } else {
         res.status(404).json({ message: 'URL not found' });
     }
