@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const connectDB = require("../config/db");
-const itemRoutes = require("../routes/urlRoutes");
+const itemRoutes = require("../routes/itemRoutes");
 const errorHandler = require("../middleware/errorMiddleware");
 const swaggerSpec = require("../config/swagger");
 const swaggerUi = require('swagger-ui-express');
@@ -13,21 +13,8 @@ connectDB();
 
 const app = express();
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-
 // Middleware
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
