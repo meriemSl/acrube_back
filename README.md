@@ -9,24 +9,24 @@ This project follows an MVC architecture for the Node.js API. Below are the setu
   - npm (Installed with Node.js)
 
 **Setup Instructions**
- 1.Clone the repository:
+ 1. Clone the repository:
    ```
     git clone https://github.com/meriemSl/acrube_back.git
     cd acrube_back
    ```
-  2.Install dependencies:
+  2. Install dependencies:
    ```
      npm install
    ```
-  3.Start the server:
+  3. Start the server:
     ``` 
       node api/server
     ```
-  4.Run tests:
+  4. Run tests:
     ```
      npm test
     ```
-  5.API Documentation & Testing:
+  5. API Documentation & Testing:
     > Open Swagger UI at:  
      ```
       http://localhost:5000/swagger/api-docs
